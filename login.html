@@ -1,67 +1,129 @@
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-  import {
-    getAuth,
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    signInWithPopup,
-    GoogleAuthProvider
-  } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VACLEAN Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-  // Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyB6xsThcLLRYHkWdWYlR4CwVQ8lqnMdS6o",
-    authDomain: "vaclean-4ce0f.firebaseapp.com",
-    projectId: "vaclean-4ce0f",
-    storageBucket: "vaclean-4ce0f.appspot.com",
-    messagingSenderId: "749048496535",
-    appId: "1:749048496535:web:21ff28bce2c7713e3804d2"
-  };
+    .login-container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #4CAF50;
+    }
 
-  const emailInput = document.getElementById("email");
-  const passwordInput = document.getElementById("password");
-  const messageBox = document.getElementById("message");
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
-  // Sign In
-  document.getElementById("login-btn").addEventListener("click", () => {
-    const email = emailInput.value;
-    const password = passwordInput.value;
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        window.location.href = "index.html";
-      })
-      .catch(error => {
-        messageBox.textContent = error.message;
-      });
-  });
+    button:hover {
+      background-color: #45a049;
+    }
 
-  // Sign Up
-  document.getElementById("signup-btn").addEventListener("click", () => {
-    const email = emailInput.value;
-    const password = passwordInput.value;
+    .google-btn {
+      background-color: #db4437;
+    }
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        window.location.href = "index.html";
-      })
-      .catch(error => {
-        messageBox.textContent = error.message;
-      });
-  });
+    .google-btn:hover {
+      background-color: #c23321;
+    }
 
-  // Google Login
-  document.getElementById("google-login-btn").addEventListener("click", () => {
-    signInWithPopup(auth, provider)
-      .then(() => {
-        window.location.href = "index.html";
-      })
-      .catch(error => {
-        messageBox.textContent = error.message;
-      });
-  });
-</script>
+    .message {
+      text-align: center;
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Welcome to VACLEAN</h2>
+    <input type="email" id="email" placeholder="Email Address" />
+    <input type="password" id="password" placeholder="Password" />
+    <button id="login-btn">Sign In</button>
+    <button id="signup-btn">Sign Up</button>
+    <button id="google-login-btn" class="google-btn">Continue with Google</button>
+    <p class="message" id="message"></p>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      signInWithPopup,
+      GoogleAuthProvider,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+    // Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyB6xsThcLLRYHkWdWYlR4CwVQ8lqnMdS6o",
+      authDomain: "vaclean-4ce0f.firebaseapp.com",
+      projectId: "vaclean-4ce0f",
+      storageBucket: "vaclean-4ce0f.appspot.com",
+      messagingSenderId: "749048496535",
+      appId: "1:749048496535:web:21ff28bce2c7713e3804d2"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const messageBox = document.getElementById("message");
+
+    // Sign In
+    document.getElementById("login-btn").addEventListener("click", () => {
+      const email = emailInput.value;
+      const password = passwordInput.value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          window.location.href = "index.html";
+        })
+        .catch(error => {
+          messageBox.textContent = error.message;
+        });
+    });
+
+    // Sign Up
+    document.getElementByI
