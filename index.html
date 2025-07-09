@@ -91,12 +91,24 @@
       margin: 20px 0;
       border-color: #4CAF50;
     }
+
+    .close-sidebar {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 
   <!-- Sidebar -->
   <div id="sidebar">
+    <button class="close-sidebar" onclick="closeSidebar()">×</button>
     <div class="content">
       <div id="user-profile">
         <p><strong>Name:</strong> <span id="user-name">Loading...</span></p>
@@ -158,12 +170,24 @@
       console.error("Error loading images:", error);
     });
 
-    // Toggle Sidebar
+    // Sidebar toggle logic
     const menuBtn = document.getElementById("menu-btn");
     const sidebar = document.getElementById("sidebar");
 
     menuBtn.addEventListener("click", () => {
       sidebar.classList.toggle("active");
+    });
+
+    // Close sidebar function
+    function closeSidebar() {
+      sidebar.classList.remove("active");
+    }
+
+    // Close sidebar when clicking outside of it
+    window.addEventListener("click", function(event) {
+      if (!sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
+        closeSidebar();
+      }
     });
 
     // Load user profile info
