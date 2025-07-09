@@ -16,6 +16,7 @@
       color: white;
       text-align: center;
       padding: 10px 0;
+      position: relative;
     }
 
     .menu-btn {
@@ -49,23 +50,23 @@
       border-radius: 10px;
     }
 
-    /* Sidebar styles */
+    /* Sidebar */
     #sidebar {
       height: 100%;
-      width: 0;
+      width: 250px;
       position: fixed;
-      z-index: 999;
       top: 0;
-      left: 0;
+      left: -250px;
       background-color: #111;
       overflow-x: hidden;
       transition: 0.3s;
-      padding-top: 60px;
       color: white;
+      padding-top: 60px;
+      z-index: 999;
     }
 
-    #sidebar.open {
-      width: 250px;
+    #sidebar.active {
+      left: 0;
     }
 
     #sidebar .content {
@@ -94,9 +95,6 @@
 </head>
 <body>
 
-  <!-- Menu Button -->
-  <button class="menu-btn" id="menu-btn">☰ Menu</button>
-
   <!-- Sidebar -->
   <div id="sidebar">
     <div class="content">
@@ -105,7 +103,7 @@
         <p><strong>Email:</strong> <span id="user-email">Loading...</span></p>
         <p><strong>Joined:</strong> <span id="user-date">Loading...</span></p>
       </div>
-      <hr/>
+      <hr />
       <button onclick="goToAdmin()">Admin</button>
       <button onclick="logout()">Log Out</button>
     </div>
@@ -113,6 +111,7 @@
 
   <!-- Header -->
   <header>
+    <button class="menu-btn" id="menu-btn">☰ Menu</button>
     <h1>VACLEAN</h1>
   </header>
 
@@ -143,7 +142,7 @@
     const storage = firebase.storage();
     const auth = firebase.auth();
 
-    // Load images from Firebase storage
+    // Load images from Firebase Storage
     const serviceImagesDiv = document.getElementById('service-images');
     const storageRef = storage.ref('service_images');
 
@@ -156,18 +155,18 @@
         });
       });
     }).catch((error) => {
-      console.error("Error loading images: ", error);
+      console.error("Error loading images:", error);
     });
 
-    // Sidebar toggle
+    // Toggle Sidebar
     const menuBtn = document.getElementById("menu-btn");
     const sidebar = document.getElementById("sidebar");
 
     menuBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("open");
+      sidebar.classList.toggle("active");
     });
 
-    // Load user data
+    // Load user profile info
     auth.onAuthStateChanged(user => {
       if (user) {
         document.getElementById("user-name").textContent = user.displayName || "No Name";
@@ -184,10 +183,10 @@
     // Admin button logic
     function goToAdmin() {
       alert("Going to admin panel...");
-      // window.location.href = "/admin.html"; // Uncomment if admin page exists
+      // window.location.href = "/admin.html";
     }
 
-    // Logout
+    // Logout function
     function logout() {
       auth.signOut().then(() => {
         alert("You have been logged out.");
@@ -195,204 +194,6 @@
       });
     }
   </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VACLEAN - Your Cleaning Experts</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
 
-    header {
-      background-color: #4CAF50;
-      color: white;
-      text-align: center;
-      padding: 10px 0;
-    }
-
-    .menu-btn {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      font-size: 20px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-      padding: 10px;
-    }
-
-    .menu-btn:hover {
-      background-color: #45a049;
-    }
-
-    .service-images {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .service-images img {
-      width: 300px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-
-    /* Sidebar styles */
-    #sidebar {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 999;
-      top: 0;
-      left: 0;
-      background-color: #111;
-      overflow-x: hidden;
-      transition: 0.3s;
-      padding-top: 60px;
-      color: white;
-    }
-
-    #sidebar.open {
-      width: 250px;
-    }
-
-    #sidebar .content {
-      padding: 20px;
-    }
-
-    #sidebar button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      background-color: #4CAF50;
-      border: none;
-      color: white;
-      cursor: pointer;
-    }
-
-    #sidebar button:hover {
-      background-color: #45a049;
-    }
-
-    #sidebar hr {
-      margin: 20px 0;
-      border-color: #4CAF50;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Menu Button -->
-  <button class="menu-btn" id="menu-btn">☰ Menu</button>
-
-  <!-- Sidebar -->
-  <div id="sidebar">
-    <div class="content">
-      <div id="user-profile">
-        <p><strong>Name:</strong> <span id="user-name">Loading...</span></p>
-        <p><strong>Email:</strong> <span id="user-email">Loading...</span></p>
-        <p><strong>Joined:</strong> <span id="user-date">Loading...</span></p>
-      </div>
-      <hr/>
-      <button onclick="goToAdmin()">Admin</button>
-      <button onclick="logout()">Log Out</button>
-    </div>
-  </div>
-
-  <!-- Header -->
-  <header>
-    <h1>VACLEAN</h1>
-  </header>
-
-  <!-- Service Images Section -->
-  <div class="service-images" id="service-images">
-    <!-- Images will be loaded here from Firebase -->
-  </div>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-
-  <script>
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyB6xsThcLLRYHkWdWYlR4CwVQ8lqnMdS6o",
-      authDomain: "vaclean-4ce0f.firebaseapp.com",
-      databaseURL: "https://vaclean-4ce0f-default-rtdb.firebaseio.com",
-      projectId: "vaclean-4ce0f",
-      storageBucket: "vaclean-4ce0f.firebasestorage.app",
-      messagingSenderId: "749048496535",
-      appId: "1:749048496535:web:21ff28bce2c7713e3804d2"
-    };
-
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const storage = firebase.storage();
-    const auth = firebase.auth();
-
-    // Load images from Firebase storage
-    const serviceImagesDiv = document.getElementById('service-images');
-    const storageRef = storage.ref('service_images');
-
-    storageRef.listAll().then((result) => {
-      result.items.forEach((imageRef) => {
-        imageRef.getDownloadURL().then((url) => {
-          const img = document.createElement('img');
-          img.src = url;
-          serviceImagesDiv.appendChild(img);
-        });
-      });
-    }).catch((error) => {
-      console.error("Error loading images: ", error);
-    });
-
-    // Sidebar toggle
-    const menuBtn = document.getElementById("menu-btn");
-    const sidebar = document.getElementById("sidebar");
-
-    menuBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("open");
-    });
-
-    // Load user data
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        document.getElementById("user-name").textContent = user.displayName || "No Name";
-        document.getElementById("user-email").textContent = user.email;
-        const joined = new Date(user.metadata.creationTime);
-        document.getElementById("user-date").textContent = joined.toDateString();
-      } else {
-        document.getElementById("user-name").textContent = "Guest";
-        document.getElementById("user-email").textContent = "Not signed in";
-        document.getElementById("user-date").textContent = "-";
-      }
-    });
-
-    // Admin button logic
-    function goToAdmin() {
-      alert("Going to admin panel...");
-      // window.location.href = "/admin.html"; // Uncomment if admin page exists
-    }
-
-    // Logout
-    function logout() {
-      auth.signOut().then(() => {
-        alert("You have been logged out.");
-        location.reload();
-      });
-    }
-  </script>
 </body>
 </html>
