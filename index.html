@@ -76,37 +76,38 @@
       padding: 20px;
     }
 
-    .sidebar button {
-  display: block;                   /* stack vertically */
-  width: 100%;                      /* fill sidebar width */
-  padding: 12px 16px;
-  margin: 5px 0;                    /* spacing between buttons */
+/* Buttons only inside the sidebar */
+#sidebar button {
+  display: block;             
+  width: 100%;                
+  padding: 12px 16px;         
+  margin: 5px 0;              
   font-size: 16px;
   font-family: Arial, sans-serif;
-  color: white;
-  text-align: left;                 /* align text to left */
+  font-weight: bold;
+  color: white;               
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;         
   cursor: pointer;
-  background-color: #4CAF50;        /* default, will override below */
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;         
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-/* Specific colors for each button (order matches your HTML) */
-.sidebar button:nth-of-type(1) { background-color: #4CAF50; }  /* Services: green */
-.sidebar button:nth-of-type(2) { background-color: #2196F3; }  /* Booking: blue */
-.sidebar button:nth-of-type(3) { background-color: #9C27B0; }  /* Reviews: purple */
-.sidebar button:nth-of-type(4) { background-color: #FF9800; }  /* About: orange */
-.sidebar button:nth-of-type(5) { background-color: #E91E63; }  /* Contact: pink */
-.sidebar button:nth-of-type(6) { background-color: #795548; }  /* Admin: brown */
-.sidebar button:nth-of-type(7) { background-color: #f44336; }  /* Log Out: red */
+/* Specific colors inside sidebar, matching your order */
+#sidebar button:nth-of-type(1) { background-color: #4CAF50; }  /* Services */
+#sidebar button:nth-of-type(2) { background-color: #2196F3; }  /* Booking */
+#sidebar button:nth-of-type(3) { background-color: #9C27B0; }  /* Reviews */
+#sidebar button:nth-of-type(4) { background-color: #FF9800; }  /* About */
+#sidebar button:nth-of-type(5) { background-color: #E91E63; }  /* Contact */
+#sidebar button:nth-of-type(6) { background-color: #795548; }  /* Admin */
+#sidebar button:nth-of-type(7) { background-color: #f44336; }  /* Log Out */
 
 /* Hover effect */
-.sidebar button:hover {
-  transform: translateX(3px);       /* subtle move to right */
+#sidebar button:hover {
+  transform: translateY(-2px);
   opacity: 0.9;
 }
-
+    
     #sidebar hr {
       margin: 20px 0;
       border-color: #4CAF50;
