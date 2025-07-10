@@ -107,12 +107,13 @@
     const email = emailInput.value;
     const password = passwordInput.value;
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        window.location.href = "index.html";
-      })
-      .catch(error => {
-        messageBox.textContent = error.message;
-      });
+  .then(() => {
+    window.location.href = "index.html";
+  })
+  .catch(error => {
+    console.error(error); // optional: see the real error in console
+    messageBox.textContent = "INCORRECT EMAIL/PASSWORD";
+  });
   });
 
   // Sign Up
