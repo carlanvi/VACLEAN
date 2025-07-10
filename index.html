@@ -124,6 +124,29 @@
       cursor: pointer;
     }
 
+    #profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #4CAF50;  /* fallback background */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto 10px; /* center horizontally + bottom spacing */
+  overflow: hidden;
+}
+
+#profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
 
   </style>
 </head>
@@ -200,17 +223,28 @@
 
     // Load user info
     onAuthStateChanged(auth, user => {
-      if (user) {
-        document.getElementById("user-name").textContent = user.displayName || "No Name";
-        document.getElementById("user-email").textContent = user.email;
-        const joined = new Date(user.metadata.creationTime);
-        document.getElementById("user-date").textContent = joined.toDateString();
-      } else {
-        document.getElementById("user-name").textContent = "Guest";
-        document.getElementById("user-email").textContent = "Not signed in";
-        document.getElementById("user-date").textContent = "-";
-      }
-    });
+  const profilePicDiv = document.getElementById("profile-pic");
+
+  if (user) {
+    document.getElementById("user-name").textContent = user.displayName || "No Name";
+    document.getElementById("user-email").textContent = user.email;
+    const joined = new Date(user.metadata.creationTime);
+    document.getElementById("user-date").textContent = joined.toDateString();
+
+    if (user.photoURL) {
+      // Show user's photo
+      profilePicDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+    } else {
+      // No photo, show default VACLEAN text
+      profilePicDiv.textContent = "VACLEAN";
+    }
+  } else {
+    document.getElementById("user-name").textContent = "Guest";
+    document.getElementById("user-email").textContent = "Not signed in";
+    document.getElementById("user-date").textContent = "-";
+    profilePicDiv.textContent = "VACLEAN";
+  }
+});
 
     // Load service images
     const serviceImagesDiv = document.getElementById('service-images');
