@@ -121,12 +121,13 @@
     const email = emailInput.value;
     const password = passwordInput.value;
     createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        window.location.href = "index.html";
-      })
-      .catch(error => {
-        messageBox.textContent = error.message;
-      });
+  .then(() => {
+    window.location.href = "index.html";
+  })
+  .catch(error => {
+    console.error(error); // optional: see real error
+    messageBox.textContent = "COULD NOT CREATE ACCOUNT"; 
+  });
   });
 
   // Google Login
