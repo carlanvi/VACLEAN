@@ -17,10 +17,9 @@
       text-align: center;
       padding: 10px 0; 
       height: 40px;
-      position: relative;
       display: flex;
-      justify-content: center; /* center horizontally */
-      align-items: center;     /* center vertically */
+      justify-content: center;
+      align-items: center;
     }
 
     .menu-btn {
@@ -35,9 +34,39 @@
       padding: 10px;
     }
 
-    .menu-btn:hover {
-      background-color: #062f06;
+    #sidebar {
+      width: 250px;
+      position: fixed;
+      top: 60px;
+      left: -250px;
+      background-color: rgba(0, 0, 0, 0.8);
+      overflow-x: hidden;
+      transition: 0.3s;
+      color: white;
+      padding-top: 5px;
+      z-index: 999;
     }
+
+    #sidebar.active { left: 0; }
+
+    #sidebar .content { padding: 20px; }
+
+    #sidebar button {
+      display: block;
+      width: 100%;
+      padding: 12px 16px;
+      margin: 5px 0;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #F5DEB3;
+      color: black;
+    }
+
+    #sidebar button:nth-of-type(6) { background-color: #808080; margin-top: 55px; }
+    #sidebar button:nth-of-type(7) { background-color: #FF0000; margin-top: 5px; }
 
     .service-images {
       display: flex;
@@ -54,251 +83,243 @@
       border-radius: 10px;
     }
 
-    #sidebar {
-      width: 250px;
-      position: fixed;
-      top: 60px;
-      left: -250px;
-      background-color: rgba(0, 0, 0, 0.8);
-      overflow-x: hidden;
-      transition: 0.3s;
-      color: white;
-      padding-top: 5px;
-      z-index: 999;
-    }
-
-    #sidebar.active {
-      left: 0;
-    }
-
-    #sidebar .content {
+    .page-section {
       padding: 20px;
+      display: none;
     }
 
-/* Buttons only inside the sidebar */
-#sidebar button {
-  display: block;             
-  width: 100%;                
-  padding: 12px 16px;         
-  margin: 5px 0;              
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-  font-weight: bold;
-  color: white;
-  border: none;
-  border-radius: 5px;         
-  cursor: pointer;
-  color: black;
-  text-align: center;         
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-/* Specific colors inside sidebar, matching your order */
-#sidebar button:nth-of-type(1) { background-color: #F5DEB3; }  /* Services */
-#sidebar button:nth-of-type(2) { background-color: #F5DEB3; }  /* Booking */
-#sidebar button:nth-of-type(3) { background-color: #F5DEB3; }  /* Reviews */
-#sidebar button:nth-of-type(4) { background-color: #F5DEB3; }  /* About */
-#sidebar button:nth-of-type(5) { background-color: #F5DEB3; }  /* Contact */
-#sidebar button:nth-of-type(6) { background-color: #808080; }  /* Admin */
-#sidebar button:nth-of-type(7) { background-color: #FF0000; }  /* Log Out */
-
-/* Hover effect */
-#sidebar button:hover {
-  transform: translateY(-2px);
-  opacity: 0.9;
-}
-    
-    #sidebar hr {
-      margin: 20px 0;
-      border-color: #4CAF50;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 500px;
     }
 
-    #sidebar button:nth-of-type(6) {
-  margin-top: 55px; /* space above Admin */
-}
+    input, textarea, select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
 
-#sidebar button:nth-of-type(7) {
-  margin-top: 5px;  /* small space above Log Out */
-}
-
-    .close-sidebar {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 20px;
-      background: none;
-      border: none;
+    button[type="submit"] {
+      background-color: #062f06;
       color: white;
-      cursor: pointer;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
     }
 
     #profile-pic {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background-color: #4CAF50;  /* fallback background */
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin: 0 auto 10px; /* center horizontally + bottom spacing */
-  overflow: hidden;
-}
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #4CAF50;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin: 0 auto 10px;
+      overflow: hidden;
+    }
 
-#profile-pic img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-
-
+    #profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Sidebar -->
-  <div id="sidebar">
-    <div class="content">
-      <div id="user-profile">
-  <div id="profile-pic"></div>
-  <p><strong>Name:</strong> <span id="user-name">Loading...</span></p>
-  <p><strong>Email:</strong> <span id="user-email">Loading...</span></p>
-  <p><strong>Joined:</strong> <span id="user-date">Loading...</span></p>
-</div>
-      <hr />
-      <button onclick="location.href='services.html'">SERVICES</button>
-  <button onclick="location.href='booking.html'">BOOKING</button>
-  <button onclick="location.href='reviews.html'">REVIEWS</button>
-      <button onclick="location.href='contact.html'">CONTACT</button>
-  <button onclick="location.href='about.html'">ABOUT</button>
-      <button onclick="goToAdmin()">ADMIN</button>
-      <button onclick="logout()">LOG OUT</button>
+<!-- Sidebar -->
+<div id="sidebar">
+  <div class="content">
+    <div id="user-profile">
+      <div id="profile-pic">VACLEAN</div>
+      <p><strong>Name:</strong> <span id="user-name">Loading...</span></p>
+      <p><strong>Email:</strong> <span id="user-email">Loading...</span></p>
+      <p><strong>Joined:</strong> <span id="user-date">Loading...</span></p>
     </div>
+    <hr />
+    <button onclick="showSection('services')">SERVICES</button>
+    <button onclick="showSection('booking')">BOOKING</button>
+    <button onclick="showSection('reviews')">REVIEWS</button>
+    <button onclick="showSection('about')">ABOUT</button>
+    <button onclick="showSection('contact')">CONTACT</button>
+    <button onclick="goToAdmin()">ADMIN</button>
+    <button onclick="logout()">LOG OUT</button>
   </div>
+</div>
 
-  <!-- Header -->
-  <header>
-    <button class="menu-btn" id="menu-btn">☰</button>
-    <h1>VACLEAN</h1>
-  </header>
+<!-- Header -->
+<header>
+  <button class="menu-btn" id="menu-btn">☰</button>
+  <h1>VACLEAN</h1>
+</header>
 
-  <!-- Service Images Section -->
-  <div class="service-images" id="service-images">
-    <!-- Images will be loaded here -->
-  </div>
+<!-- Service Images -->
+<div class="service-images" id="service-images"></div>
 
-  <!-- Firebase SDK with Module Syntax -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-    import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
+<!-- Page Sections -->
+<div id="services" class="page-section">
+  <h2>Our Services</h2>
+  <p>We offer home, office, and deep cleaning. Choose what suits you best!</p>
+</div>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyB6xsThcLLRYHkWdWYlR4CwVQ8lqnMdS6o",
-      authDomain: "vaclean-4ce0f.firebaseapp.com",
-      databaseURL: "https://vaclean-4ce0f-default-rtdb.firebaseio.com",
-      projectId: "vaclean-4ce0f",
-      storageBucket: "vaclean-4ce0f.appspot.com",
-      messagingSenderId: "749048496535",
-      appId: "1:749048496535:web:21ff28bce2c7713e3804d2"
-    };
+<div id="booking" class="page-section">
+  <h2>Book a Cleaning Service</h2>
+  <form id="bookingForm">
+    <input type="text" name="name" placeholder="Full Name" required />
+    <input type="email" name="email" placeholder="Email Address" required />
+    <input type="tel" name="phone" placeholder="Phone Number" required />
+    <input type="date" name="date" required />
+    <input type="time" name="time" required />
+    <select name="service" required>
+      <option value="">-- Select Service --</option>
+      <option value="home">Home Cleaning</option>
+      <option value="office">Office Cleaning</option>
+      <option value="deep">Deep Cleaning</option>
+    </select>
+    <textarea name="notes" placeholder="Additional Notes (optional)" rows="4"></textarea>
+    <button type="submit">Submit Booking</button>
+  </form>
+</div>
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const storage = getStorage(app);
+<div id="reviews" class="page-section">
+  <h2>Customer Reviews</h2>
+  <p>"VACLEAN is amazing!" - A Happy Customer</p>
+</div>
 
-    // Menu toggle
-    const menuBtn = document.getElementById("menu-btn");
-    const sidebar = document.getElementById("sidebar");
+<div id="about" class="page-section">
+  <h2>About VACLEAN</h2>
+  <p>VACLEAN is a trusted cleaning service in your community, known for reliability and quality.</p>
+</div>
 
-    menuBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("active");
-    });
+<div id="contact" class="page-section">
+  <h2>Contact Us</h2>
+  <p>Email: support@vaclean.com</p>
+  <p>Phone: (876) 555-1234</p>
+</div>
 
-    window.closeSidebar = function () {
-      sidebar.classList.remove("active");
-    };
+<!-- Firebase + Script -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+  import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
 
-    window.addEventListener("click", function(event) {
-      if (!sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
-        closeSidebar();
+  const firebaseConfig = {
+    apiKey: "AIzaSyB6xsThcLLRYHkWdWYlR4CwVQ8lqnMdS6o",
+    authDomain: "vaclean-4ce0f.firebaseapp.com",
+    databaseURL: "https://vaclean-4ce0f-default-rtdb.firebaseio.com",
+    projectId: "vaclean-4ce0f",
+    storageBucket: "vaclean-4ce0f.appspot.com",
+    messagingSenderId: "749048496535",
+    appId: "1:749048496535:web:21ff28bce2c7713e3804d2"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const storage = getStorage(app);
+
+  const menuBtn = document.getElementById("menu-btn");
+  const sidebar = document.getElementById("sidebar");
+
+  menuBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+  });
+
+  window.closeSidebar = function () {
+    sidebar.classList.remove("active");
+  };
+
+  window.addEventListener("click", function (event) {
+    if (!sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
+      closeSidebar();
+    }
+  });
+
+  onAuthStateChanged(auth, user => {
+    const profilePicDiv = document.getElementById("profile-pic");
+
+    if (user) {
+      document.getElementById("user-name").textContent = user.displayName || "No Name";
+      document.getElementById("user-email").textContent = user.email;
+      const joined = new Date(user.metadata.creationTime);
+      document.getElementById("user-date").textContent = joined.toDateString();
+
+      if (user.photoURL) {
+        profilePicDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+      } else {
+        profilePicDiv.textContent = "VACLEAN";
       }
-    });
-
-    // Load user info
-    onAuthStateChanged(auth, user => {
-  const profilePicDiv = document.getElementById("profile-pic");
-
-  if (user) {
-    document.getElementById("user-name").textContent = user.displayName || "No Name";
-    document.getElementById("user-email").textContent = user.email;
-    const joined = new Date(user.metadata.creationTime);
-    document.getElementById("user-date").textContent = joined.toDateString();
-
-    if (user.photoURL) {
-      // Show user's photo
-      profilePicDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
     } else {
-      // No photo, show default VACLEAN text
+      document.getElementById("user-name").textContent = "Guest";
+      document.getElementById("user-email").textContent = "Not signed in";
+      document.getElementById("user-date").textContent = "-";
       profilePicDiv.textContent = "VACLEAN";
     }
-  } else {
-    document.getElementById("user-name").textContent = "Guest";
-    document.getElementById("user-email").textContent = "Not signed in";
-    document.getElementById("user-date").textContent = "-";
-    profilePicDiv.textContent = "VACLEAN";
-  }
-});
-
-    // Load service images
-    const serviceImagesDiv = document.getElementById('service-images');
-    const storageRef = ref(storage, 'service_images');
-
-    listAll(storageRef).then((result) => {
-      result.items.forEach((imageRef) => {
-        getDownloadURL(imageRef).then((url) => {
-          const img = document.createElement('img');
-          img.src = url;
-          serviceImagesDiv.appendChild(img);
-        });
-      });
-    }).catch((error) => {
-      console.error("Error loading images:", error);
-    });
-
-    // Admin button
-    window.goToAdmin = function () {
-  const adminEmail = "carlanviroberts@gmail.com";     // 🔐 Set your admin email
-  const adminPassword = "@Carlanvi321";  // 🔐 Set your admin password
-
-  const inputEmail = prompt("Enter admin email:");
-  if (!inputEmail || inputEmail.trim() !== adminEmail) {
-    return; // Just exit silently if wrong
-  }
-
-  const inputPassword = prompt("Enter admin password:");
-  if (!inputPassword || inputPassword !== adminPassword) {
-    return; // Also exit silently if wrong
-  }
-
-  // ✅ Both email and password are correct — go to admin dashboard
-  window.location.href = "dashboard.html";
-};
-
-    // Logout
-window.logout = function () {
-  signOut(auth).then(() => {
-    window.location.href = "login.html"; // Redirect to your login page
-  }).catch((error) => {
-    console.error("Logout failed:", error);
   });
-};
 
-  </script>
+  const serviceImagesDiv = document.getElementById('service-images');
+  const storageRef = ref(storage, 'service_images');
+
+  listAll(storageRef).then((result) => {
+    result.items.forEach((imageRef) => {
+      getDownloadURL(imageRef).then((url) => {
+        const img = document.createElement('img');
+        img.src = url;
+        serviceImagesDiv.appendChild(img);
+      });
+    });
+  }).catch((error) => {
+    console.error("Error loading images:", error);
+  });
+
+  window.goToAdmin = function () {
+    const adminEmail = "carlanviroberts@gmail.com";
+    const adminPassword = "@Carlanvi321";
+
+    const inputEmail = prompt("Enter admin email:");
+    if (!inputEmail || inputEmail.trim() !== adminEmail) return;
+
+    const inputPassword = prompt("Enter admin password:");
+    if (!inputPassword || inputPassword !== adminPassword) return;
+
+    window.location.href = "dashboard.html";
+  };
+
+  window.logout = function () {
+    signOut(auth).then(() => {
+      window.location.href = "login.html";
+    }).catch((error) => {
+      console.error("Logout failed:", error);
+    });
+  };
+</script>
+
+<!-- Section Toggle + Booking Script -->
+<script>
+  function showSection(id) {
+    const sections = document.querySelectorAll('.page-section');
+    sections.forEach(sec => sec.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+    closeSidebar();
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("bookingForm");
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        alert("Booking submitted!");
+        form.reset();
+      });
+    }
+  });
+</script>
 
 </body>
 </html>
