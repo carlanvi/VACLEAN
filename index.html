@@ -489,12 +489,12 @@
       const stars = '★'.repeat(data.rating) + '☆'.repeat(5 - data.rating);
 
       reviewDiv.innerHTML = `
-        <strong>${data.name}</strong> 
-        <span style="color: #f39c12;">${stars}</span>
-        <br/>
-        <small style="color: #888;">${timeAgo}</small>
-        <p style="color: black;">${data.comment}</p>
-      `;
+  <strong>${data.name}</strong> 
+  <span style="color: #f39c12;">${stars}</span>
+  <br/>
+  <p style="color: black;">${data.comment}</p>
+  <small style="color: #888;">${timeAgo}</small>
+`;
 
       if (canDelete) {
         const delBtn = document.createElement('button');
