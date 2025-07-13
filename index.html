@@ -65,8 +65,15 @@
       color: black;
     }
 
-    #sidebar button:nth-of-type(6) { background-color: #808080; margin-top: 55px; }
-    #sidebar button:nth-of-type(7) { background-color: #FF0000; margin-top: 5px; }
+    #sidebar button.admin-btn {
+  background-color: #808080;
+  margin-top: 55px;
+}
+
+#sidebar button.logout-btn {
+  background-color: #FF0000;
+  margin-top: 5px;
+}
 
     .service-images {
       display: flex;
@@ -148,6 +155,7 @@
     <button onclick="showSection('booking')">BOOKING</button>
     <button onclick="showSection('reviews')">REVIEWS</button>
     <button onclick="showSection('about')">ABOUT</button>
+    
     <button onclick="goToAdmin()">ADMIN</button>
     <button onclick="logout()">LOG OUT</button>
   </div>
