@@ -277,17 +277,15 @@
 
   const inputEmail = prompt("Enter admin email:");
   if (!inputEmail || inputEmail.trim() !== adminEmail) {
-    alert("Access denied.");
-    return;
+    return; // Just exit silently if wrong
   }
 
   const inputPassword = prompt("Enter admin password:");
   if (!inputPassword || inputPassword !== adminPassword) {
-    alert("Access denied.");
-    return;
+    return; // Also exit silently if wrong
   }
 
-  // If both are correct, go to admin panel
+  // ✅ Both email and password are correct — go to admin dashboard
   window.location.href = "admin.html";
 };
 
