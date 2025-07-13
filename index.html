@@ -189,33 +189,44 @@
 </div>
 
 <!-- Reviews Section -->
-<div id="reviews" class="page-section">
-  <div id="reviewsSection" class="content-section" style="padding-top: 1px; background-color: black; color: white;">
+<div id="reviews" class="page-section" style="position: relative;">
+  <div id="reviewsSection" class="content-section" style="
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 50px;
+    background-color: black;
+    color: white;
+    z-index: 999;
+  ">
+    <div id="reviewFormContainer" style="
+      max-width: 100%;
+      margin: 10px auto 20px auto;
+      background-color: #6A0DAD;
+      padding: 5px;
+      border-radius: 10px;
+      color: black;
+    ">
+      <form id="reviewForm" style="text-align: center;">
+        <input type="text" id="reviewName" placeholder="Your Name" required
+          style="width: 100%; padding: 8px; margin-bottom: 6px; border-radius: 6px; border: 1px solid #555; background-color: #fff; color: black; box-sizing: border-box;" />
 
-  <div id="reviewFormContainer" style="
-    max-width: 100%;
-    margin: 10px auto 20px auto;
-    background-color: #6A0DAD;
-    padding: 5px;
-    border-radius: 10px;
-    color: black;">
-    
-    <form id="reviewForm" style="text-align: center;">
-      <input type="text" id="reviewName" placeholder="Your Name" required
-        style="width: 100%; padding: 8px; margin-bottom: 6px; border-radius: 6px; border: 1px solid #555; background-color: #fff; color: black; box-sizing: border-box;" />
+        <textarea id="reviewComment" placeholder="Write your review..." required
+          style="width: 100%; height: 60px; padding: 8px; margin-bottom: 6px; border-radius: 6px; border: 1px solid #555; background-color: #fff; color: black; box-sizing: border-box;"></textarea>
 
-      <textarea id="reviewComment" placeholder="Write your review..." required
-        style="width: 100%; height: 60px; padding: 8px; margin-bottom: 6px; border-radius: 6px; border: 1px solid #555; background-color: #fff; color: black; box-sizing: border-box;"></textarea>
+        <div id="starRating" style="font-size: 22px; margin-bottom: 6px; cursor: pointer; color: #ccc; letter-spacing: -2px;">
+          <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span><span data-value="4">★</span><span data-value="5">★</span>
+        </div>
 
-      <div id="starRating" style="font-size: 22px; margin-bottom: 6px; cursor: pointer; color: #ccc; letter-spacing: -2px;">
-        <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span><span data-value="4">★</span><span data-value="5">★</span>
-      </div>
-
-      <button type="submit" style="background-color: #6200ea; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">
-        Submit Review
-      </button>
-    </form>
+        <button type="submit" style="background-color: #6200ea; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">
+          Submit Review
+        </button>
+      </form>
+    </div>
   </div>
+</div>
+
 
   <h1 style="text-align: center; color: #9b59b6; margin-top: 5px; margin-bottom: 10px;">REVIEWS</h1>
 
