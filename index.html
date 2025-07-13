@@ -462,80 +462,63 @@
 
   // Load reviews from Firestore
   async function loadReviews(user) {
-    const container = document.getElementById('reviewsContainer');
-    container.innerHTML = '';
-    try {
-      const q = query(collection(db, 'reviews'), orderBy('timestamp', 'desc'));
-      const snapshot = await getDocs(q);
+  const container = document.getElementById('reviewsContainer');
+  container.innerHTML = '';
 
-      if (snapshot.empty) {
-        container.innerHTML = '<p>No reviews yet.</p>';
-        return;
+  try {
+    const q = query(collection(db, 'reviews'), orderBy('timestamp', 'desc'));
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+      container.innerHTML = '<p>No reviews yet.</p>';
+      return;
+    }
+
+    snapshot.forEach(docSnap => {
+      const data = docSnap.data();
+      const canDelete = user && data.uid === user.uid;
+
+      const reviewDiv = document.createElement('div');
+      reviewDiv.style.borderBottom = '1px solid #ddd';
+      reviewDiv.style.padding = '10px 0';
+
+      // Format time
+      const timestamp = data.timestamp?.toDate?.();
+      const timeAgo = timestamp ? timeSince(timestamp) : '';
+
+      const stars = '★'.repeat(data.rating) + '☆'.repeat(5 - data.rating);
+
+      reviewDiv.innerHTML = `
+        <strong>${data.name}</strong> 
+        <span style="color: #f39c12;">${stars}</span>
+        <br/>
+        <small style="color: #888;">${timeAgo}</small>
+        <p style="color: black;">${data.comment}</p>
+      `;
+
+      if (canDelete) {
+        const delBtn = document.createElement('button');
+        delBtn.textContent = 'Delete';
+        Object.assign(delBtn.style, {
+          backgroundColor: '#e74c3c',
+          color: 'white',
+          border: 'none',
+          padding: '5px 10px',
+          borderRadius: '4px',
+          cursor: 'pointer'
+        });
+        delBtn.addEventListener('click', () => deleteReview(docSnap.id, user));
+        reviewDiv.appendChild(delBtn);
       }
 
-      snapshot.forEach(docSnap => {
-  const data = docSnap.data();
-  const canDelete = user && data.uid === user.uid;
-  
-  const reviewDiv = document.createElement('div');
-  reviewDiv.style.borderBottom = '1px solid #ddd';
-  reviewDiv.style.padding = '10px 0';
-
-  // Format time
-  const timestamp = data.timestamp?.toDate?.();
-  const timeAgo = timestamp ? timeSince(timestamp) : '';
-
-  const stars = '★'.repeat(data.rating) + '☆'.repeat(5 - data.rating);
-
-  reviewDiv.innerHTML = `
-    <strong>${data.name}</strong> 
-    <span style="color: #f39c12;">${stars}</span>
-    <br/>
-    <small style="color: #888;">${timeAgo}</small>
-    <p style="color: black;">${data.comment}</p>
-  `;
-
-  if (canDelete) {
-    const delBtn = document.createElement('button');
-    delBtn.textContent = 'Delete';
-    Object.assign(delBtn.style, {
-      backgroundColor: '#e74c3c',
-      color: 'white',
-      border: 'none',
-      padding: '5px 10px',
-      borderRadius: '4px',
-      cursor: 'pointer'
+      container.appendChild(reviewDiv);
     });
-    delBtn.addEventListener('click', () => deleteReview(docSnap.id, user));
-    reviewDiv.appendChild(delBtn);
+
+  } catch (error) {
+    console.error('Error loading reviews:', error);
+    container.innerHTML = '<p>Error loading reviews.</p>';
   }
-
-  container.appendChild(reviewDiv);
-});
-
-        if (canDelete) {
-          const delBtn = document.createElement('button');
-          delBtn.textContent = 'Delete';
-          Object.assign(delBtn.style, {
-            backgroundColor: '#e74c3c',
-            color: 'white',
-            border: 'none',
-            padding: '5px 10px',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          });
-          delBtn.addEventListener('click', () => deleteReview(docSnap.id, user));
-          reviewDiv.appendChild(delBtn);
-        }
-
-        container.appendChild(reviewDiv);
-      });
-
-    } catch (error) {
-      console.error('Error loading reviews:', error);
-      container.innerHTML = '<p>Error loading reviews.</p>';
-    }
-  }
+}
 
   // Delete review from Firestore
   async function deleteReview(docId, user) {
