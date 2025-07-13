@@ -272,7 +272,23 @@
 
     // Admin button
     window.goToAdmin = function () {
-  window.location.href = "login.html"; // redirect to login first
+  const adminEmail = "admin@example.com";     // 🔐 Set your admin email
+  const adminPassword = "securePassword123";  // 🔐 Set your admin password
+
+  const inputEmail = prompt("Enter admin email:");
+  if (!inputEmail || inputEmail.trim() !== adminEmail) {
+    alert("Access denied.");
+    return;
+  }
+
+  const inputPassword = prompt("Enter admin password:");
+  if (!inputPassword || inputPassword !== adminPassword) {
+    alert("Access denied.");
+    return;
+  }
+
+  // If both are correct, go to admin panel
+  window.location.href = "admin.html";
 };
 
     // Logout
