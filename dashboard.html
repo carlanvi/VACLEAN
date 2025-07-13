@@ -8,23 +8,28 @@
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
 
     header {
-      background: #062f06;
-      color: white;
-      padding: 15px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    header h2 { margin: 0; }
-    header .menu-btn {
-      background: none;
-      border: 2px solid white;
-      color: white;
-      font-size: 18px;
-      padding: 8px 12px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
+  background: #062f06;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* aligns items to the left */
+  gap: 10px; /* optional: adds space between button and h2 */
+}
+
+header h2 {
+  margin: 0;
+}
+
+header .menu-btn {
+  background: none;
+  border: 2px solid white;
+  color: white;
+  font-size: 18px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
 
     #sidebar {
       margin-top: 60px;
