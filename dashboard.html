@@ -10,20 +10,21 @@
     header {
   background: #062f06;
   color: white;
-  padding: 15px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-  position: relative; /* Needed for absolute positioning inside */
+  height: 60px; /* Optional: fixed height for layout consistency */
+  position: relative;
 }
 
 header h2 {
   margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
 }
 
 header .menu-btn {
-  position: absolute;        /* 🔧 Key to pin to top-left */
+  position: absolute;
   top: 0;
   left: 0;
   background: none;
@@ -32,8 +33,8 @@ header .menu-btn {
   font-size: 18px;
   padding: 8px 12px;
   cursor: pointer;
-  border-radius: 4px;
-  margin: 0;                 /* Optional: remove default spacing */
+  border-radius: 0 0 4px 0;
+  margin: 0;
 }
 
     #sidebar {
@@ -85,7 +86,7 @@ header .menu-btn {
 <body>
 
 <header>
-  <button class="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
+  <button class="menu-btn" onclick="toggleSidebar()">☰</button>
   <h2>VACLEAN Admin</h2>
 </header>
 
